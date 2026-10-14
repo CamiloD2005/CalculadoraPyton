@@ -17,7 +17,6 @@ resultado_actual = None
 
 while True:
     if resultado_actual is None:
-        # Primera operación: pedir dos números y la operación
         print("Seleccione una opción:")
         print("1: Suma")
         print("2: Resta")
@@ -51,7 +50,6 @@ while True:
             print("Opción no válida.")
             continue
     else:
-        # Ya hay un resultado, preguntar si quiere seguir operando
         seguir = input(f"Resultado actual: {resultado_actual}. ¿Quieres seguir operando? (y/n): ").lower()
         if seguir == 'n':
             print("Hasta luego.")
