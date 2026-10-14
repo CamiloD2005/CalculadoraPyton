@@ -1,0 +1,86 @@
+def suma(a, b):
+    return a + b
+
+def resta(a, b):
+    return a - b
+
+def multiplicar(a, b):
+    return a * b
+
+def dividir(a, b):
+    if b == 0:
+        print("Error: No se puede dividir entre cero.")
+        return None
+    return a / b
+
+resultado_actual = None
+
+while True:
+    if resultado_actual is None:
+        # Primera operación: pedir dos números y la operación
+        print("Seleccione una opción:")
+        print("1: Suma")
+        print("2: Resta")
+        print("3: Multiplicar")
+        print("4: Dividir")
+        print("5: Salir")
+        opcion = input("Elige una opción (1-5): ")
+
+        if opcion == '5':
+            print("Hasta luego.")
+            break
+
+        if opcion in ['1','2','3','4']:
+            try:
+                num1 = float(input("Ingresa el primer número: "))
+                num2 = float(input("Ingresa el segundo número: "))
+            except ValueError:
+                print("Entrada inválida. Intenta de nuevo.")
+                continue
+
+            if opcion == '1':
+                resultado_actual = suma(num1, num2)
+            elif opcion == '2':
+                resultado_actual = resta(num1, num2)
+            elif opcion == '3':
+                resultado_actual = multiplicar(num1, num2)
+            elif opcion == '4':
+                resultado_actual = dividir(num1, num2)
+            print("Resultado:", resultado_actual)
+        else:
+            print("Opción no válida.")
+            continue
+    else:
+        # Ya hay un resultado, preguntar si quiere seguir operando
+        seguir = input(f"Resultado actual: {resultado_actual}. ¿Quieres seguir operando? (y/n): ").lower()
+        if seguir == 'n':
+            print("Hasta luego.")
+            break
+        elif seguir == 'y':
+            print("Seleccione una operación para hacer con el resultado actual:")
+            print("1: Suma")
+            print("2: Resta")
+            print("3: Multiplicar")
+            print("4: Dividir")
+            opcion = input("Elige una opción (1-4): ")
+
+            try:
+                num = float(input("Ingresa el siguiente número: "))
+            except ValueError:
+                print("Entrada inválida.")
+                continue
+
+            if opcion == '1':
+                resultado_actual = suma(resultado_actual, num)
+            elif opcion == '2':
+                resultado_actual = resta(resultado_actual, num)
+            elif opcion == '3':
+                resultado_actual = multiplicar(resultado_actual, num)
+            elif opcion == '4':
+                resultado_actual = dividir(resultado_actual, num)
+            else:
+                print("Opción no válida.")
+                continue
+            print("Resultado actualizado:", resultado_actual)
+        else:
+            print("Respuesta no reconocida. Escribe 'y' para seguir o 'n' para salir.")
