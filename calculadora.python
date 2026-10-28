@@ -1,84 +1,61 @@
-def suma(a, b):
-    return a + b
+total=0
+def suma(a,b):
+    return a+b
 
-def resta(a, b):
-    return a - b
+def resta(a,b):
+    return a-b
+def multiplicacion(a,b):
+    return a*b
+def division(a,b):
+    return a/b
 
-def multiplicar(a, b):
-    return a * b
-
-def dividir(a, b):
-    if b == 0:
-        print("Error: No se puede dividir entre cero.")
-        return None
-    return a / b
-
-resultado_actual = None
+def pedir_numero(mensaje):
+    while True:
+        try:
+            numero = float(input(mensaje))
+            return numero
+        except ValueError:
+            print("Escriba un numero:")
+            
 
 while True:
-    if resultado_actual is None:
-        print("Seleccione una opción:")
-        print("1: Suma")
-        print("2: Resta")
-        print("3: Multiplicar")
-        print("4: Dividir")
-        print("5: Salir")
-        opcion = input("Elige una opción (1-5): ")
+    try: 
+        eleccion = int(input("Bienvenido a la calculadora,elija una opcion (del 1 al 5):\n Opcion 1: Suma \n Opcion 2: Resta \n Opcion 3: Multiplicar \n Opcion 4: Division \n Opcion 5: Volver atras \n Opcion 6: Salir de la calculadora."))
 
-        if opcion == '5':
-            print("Hasta luego.")
-            break
+        break
+    except ValueError:
+        print("Debes introducir un numero:")
 
-        if opcion in ['1','2','3','4']:
-            try:
-                num1 = float(input("Ingresa el primer número: "))
-                num2 = float(input("Ingresa el segundo número: "))
-            except ValueError:
-                print("Entrada inválida. Intenta de nuevo.")
-                continue
 
-            if opcion == '1':
-                resultado_actual = suma(num1, num2)
-            elif opcion == '2':
-                resultado_actual = resta(num1, num2)
-            elif opcion == '3':
-                resultado_actual = multiplicar(num1, num2)
-            elif opcion == '4':
-                resultado_actual = dividir(num1, num2)
-            print("Resultado:", resultado_actual)
+resultado=None
+operacion=""
+historial=[]
+
+while eleccion !=6:
+
+    if eleccion == 1:
+        print("Has elegido la opcion sumar.")
+
+        if resultado is None:
+                num1 = pedir_numero("Dime el primer numero:")
+                operacion=str(num1)
         else:
-            print("Opción no válida.")
-            continue
+            num1=resultado
+
+        num2= pedir_numero("Dime el segundo numero:")
+        historial.append((resultado,operacion))
+
+        resultado = suma(num1,num2)
+        operacion="("+ operacion +" + " +str(num2)+")"
+        print (operacion,"=",resultado)    
     else:
-        seguir = input(f"Resultado actual: {resultado_actual}. ¿Quieres seguir operando? (y/n): ").lower()
-        if seguir == 'n':
-            print("Hasta luego.")
+        print("Opcion no valida")
+
+
+
+    while True:
+        try:
+            eleccion = int(input(""))
             break
-        elif seguir == 'y':
-            print("Seleccione una operación para hacer con el resultado actual:")
-            print("1: Suma")
-            print("2: Resta")
-            print("3: Multiplicar")
-            print("4: Dividir")
-            opcion = input("Elige una opción (1-4): ")
-
-            try:
-                num = float(input("Ingresa el siguiente número: "))
-            except ValueError:
-                print("Entrada inválida.")
-                continue
-
-            if opcion == '1':
-                resultado_actual = suma(resultado_actual, num)
-            elif opcion == '2':
-                resultado_actual = resta(resultado_actual, num)
-            elif opcion == '3':
-                resultado_actual = multiplicar(resultado_actual, num)
-            elif opcion == '4':
-                resultado_actual = dividir(resultado_actual, num)
-            else:
-                print("Opción no válida.")
-                continue
-            print("Resultado actualizado:", resultado_actual)
-        else:
-            print("Respuesta no reconocida. Escribe 'y' para seguir o 'n' para salir.")
+        except ValueError:
+            print("Error.")
