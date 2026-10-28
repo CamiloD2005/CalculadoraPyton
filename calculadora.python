@@ -1,61 +1,84 @@
-total=0
-def suma(a,b):
-    return a+b
+def suma(a, b):
+    return a + b
 
-def resta(a,b):
-    return a-b
-def multiplicacion(a,b):
-    return a*b
-def division(a,b):
-    return a/b
+def resta(a, b):
+    return a - b
+
+def multiplicacion(a, b):
+    return a * b
+
+def division(a, b):
+    return a / b
 
 def pedir_numero(mensaje):
     while True:
         try:
-            numero = float(input(mensaje))
-            return numero
+            return float(input(mensaje))
         except ValueError:
-            print("Escriba un numero:")
-            
+            print("Debes escribir un número válido.")
+
+resultado = None
+historial = []
 
 while True:
-    try: 
-        eleccion = int(input("Bienvenido a la calculadora,elija una opcion (del 1 al 5):\n Opcion 1: Suma \n Opcion 2: Resta \n Opcion 3: Multiplicar \n Opcion 4: Division \n Opcion 5: Volver atras \n Opcion 6: Salir de la calculadora."))
+    print("""
+Bienvenido a la calculadora. Elige una opción:
+1. Suma
+2. Resta
+3. Multiplicación
+4. División
+5. Volver atrás (reiniciar el resultado)
+6. Salir
+""")
 
-        break
+    try:
+        eleccion = int(input("Opción: "))
     except ValueError:
-        print("Debes introducir un numero:")
+        print("Debes introducir un número.")
+        continue
 
+    if eleccion == 6:
+        print("\nSaliendo de la calculadora.")
+        if historial:
+            print("Historial:")
+            for operacion in historial:
+                print(operacion)
+        break
 
-resultado=None
-operacion=""
-historial=[]
+    if eleccion == 5:
+        resultado = None
+        print("Resultado reiniciado.")
+        continue
 
-while eleccion !=6:
+    if eleccion not in (1, 2, 3, 4):
+        print("Opción no válida.")
+        continue
+
+    if resultado is None:
+        num1 = pedir_numero("Dime el primer número: ")
+    else:
+        num1 = resultado
+        print(f"Usaremos el resultado anterior: {num1}")
+
+    num2 = pedir_numero("Dime el segundo número: ")
 
     if eleccion == 1:
-        print("Has elegido la opcion sumar.")
-
-        if resultado is None:
-                num1 = pedir_numero("Dime el primer numero:")
-                operacion=str(num1)
-        else:
-            num1=resultado
-
-        num2= pedir_numero("Dime el segundo numero:")
-        historial.append((resultado,operacion))
-
-        resultado = suma(num1,num2)
-        operacion="("+ operacion +" + " +str(num2)+")"
-        print (operacion,"=",resultado)    
+        simbolo = "+"
+        nuevo_resultado = suma(num1, num2)
+    elif eleccion == 2:
+        simbolo = "-"
+        nuevo_resultado = resta(num1, num2)
+    elif eleccion == 3:
+        simbolo = "*"
+        nuevo_resultado = multiplicacion(num1, num2)
     else:
-        print("Opcion no valida")
+        simbolo = "/"
+        if num2 == 0:
+            print("No se puede dividir entre cero.")
+            continue
+        nuevo_resultado = division(num1, num2)
 
-
-
-    while True:
-        try:
-            eleccion = int(input(""))
-            break
-        except ValueError:
-            print("Error.")
+    resultado = nuevo_resultado
+    registro = f"{num1} {simbolo} {num2} = {resultado}"
+    historial.append(registro)
+    print(registro)
